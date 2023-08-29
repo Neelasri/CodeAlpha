@@ -1,3 +1,8 @@
+
+<body>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+</body>
 <div>
     <h1> Multi-Step Survey Form </h1>
     <div id="multi-step-form-container">
@@ -150,10 +155,11 @@
                         <label for="acceptTerms">I accept the terms and conditions</label>
                     </div>
                     <!-- Step 3 input fields goes here.. -->
+                    <div class="g-recaptcha" data-sitekey="6Lef5eMnAAAAAAwoRmDtPlbdNldIT5Apprc59qXe"></div>
                 </div>
                 <div class="mt-3">
                     <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-                    <button class="button submit-btn" type="submit" >Submit</button>
+                    <button  class="button submit-btn" type="submit" id="submitButton" >Submit</button>
 
                 </div>
             </section>
@@ -233,4 +239,16 @@ const navigateToFormStep = (stepNumber) => {
             navigateToFormStep(stepNumber);
         });
     });
+        // Define a function to enable the submit button.
+    const enableSubmitButton = () => {
+        document.getElementById('submitButton').removeAttribute('disabled');
+    };
+
+     // Attach the callback to the reCAPTCHA widget.
+  grecaptcha.ready(function () {
+    grecaptcha.execute('6Lef5eMnAAAAAAwoRmDtPlbdNldIT5Apprc59qXe', { action: 'submit' }).then(function (token) {
+      // Enable the submit button when CAPTCHA is successful.
+      enableSubmitButton();
+    });
+  });
 </script>
